@@ -1,6 +1,6 @@
-### Internet_Relay_Chat
-## English
+# Internet_Relay_Chat
+### English
 A cross platform simple IRC client/server for instant messaging.
-#
-## Русский
+##
+### Русский
 Кроссплатформенный простой клиент/сервер IRC для обмена мгновенными сообщениями.
