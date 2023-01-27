@@ -8,7 +8,7 @@
 /Server/*.vcxproj
 /Clinet/*.vcxproj.*
 /Server/*.vcxproj.*
-/Clinet/.vs
+/Client/.vs
 /Server/.vs
-/Clinet/x64
+/Client/x64
 /Server/x64
