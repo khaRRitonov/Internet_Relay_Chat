@@ -1,10 +1,24 @@
 #include <iostream>
 #include <winsock2.h>
-
+#include <string>
 
 #pragma comment(lib, "ws2_32.lib")
 
 #pragma warning(disable: 4996);
+
+SOCKET connected;
+
+void client_hendler() {
+	int msg_size;
+	while (true) {
+		recv(connected, (char*)&msg_size, sizeof(int), NULL);
+		char* msg = new char[msg_size + 1];
+		msg[msg_size] = '\0';
+		recv(connected, msg, msg_size, NULL);
+		std::cout << msg << std::endl;
+		delete[] msg;
+	}
+}
 
 int main() {
 	//WSAStartup
@@ -21,17 +35,24 @@ int main() {
 	addr.sin_port = htons(1111);
 	addr.sin_family = AF_INET;
 
-	SOCKET connected = socket(AF_INET, SOCK_STREAM, NULL);
+	connected = socket(AF_INET, SOCK_STREAM, NULL);
 	if (connect(connected, (SOCKADDR*)&addr, sizeof(addr)) != 0) { // присоединение к серверу
 		std::cout << "Error: failed connect to server!" << std::endl;
 		return 1;
 	}
 
 	std::cout << "Connected!" << std::endl;
-	char msg[256];
-	recv(connected, msg, sizeof(msg), NULL);
 
-	std::cout << msg << std::endl;
+	CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)client_hendler, NULL, NULL, NULL);
+
+	std::string msg1;
+	while (true) {
+		std::getline(std::cin, msg1);
+		int msg_size = msg1.size();
+		send(connected, (char*)&msg_size, sizeof(int), NULL); // отправляем размер строки 
+		send(connected, msg1.c_str(), msg_size, NULL); // отпарвляем саму строку
+		Sleep(10);
+	}
 
 	system("pause");
 	return 0;

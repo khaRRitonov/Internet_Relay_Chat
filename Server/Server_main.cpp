@@ -1,10 +1,32 @@
 #include <iostream>
 #include <winsock2.h>
-
+#include <vector>
 
 #pragma comment(lib, "ws2_32.lib")
 
 #pragma warning(disable: 4996);
+
+std::vector<SOCKET> connection; // коллекция подключений
+//SOCKET connection[100];
+int counter = 0;
+
+void client_handler(int index) {
+	int msg_size;
+	while (true) {
+		recv(connection[index], (char*)&msg_size, sizeof(int), NULL);
+		char* msg = new char[msg_size + 1];
+		msg[msg_size] = '\0';
+		recv(connection[index], msg, msg_size, NULL);
+		for (int i = 0; i < counter; i++) {
+			if (i == index) {
+				continue;
+			}
+			send(connection[i], (char*)&msg_size, sizeof(int), NULL);
+			send(connection[i], msg, msg_size, NULL);
+		}
+		delete[] msg;
+	}
+}
 
 int main() {
 	//WSAStartup
@@ -26,16 +48,25 @@ int main() {
 	listen(sListen, SOMAXCONN); // прослушивание
 
 	SOCKET newConnection;
-	newConnection = accept(sListen, (SOCKADDR*)&addr, &size_new_addr);
 
-	if (newConnection == 0) {
-		std::cout << "Error!" << std::endl;
-	}
-	else {
-		std::cout << "Client Connected!" << std::endl;
-		char msg[] = " ";
-		std::cin >> msg;
-		send(newConnection, msg, sizeof(msg), NULL);
+	for (int i = 0; i < 100; i++) {
+		newConnection = accept(sListen, (SOCKADDR*)&addr, &size_new_addr);
+
+		if (newConnection == 0) {
+			std::cout << "Error!" << std::endl;
+		}
+		else {
+			std::cout << "Client Connected!" << std::endl;
+			std::string msg = "Hello, It`s my first network program!";
+			int msg_size = msg.size();
+			send(newConnection, (char*)&msg_size, sizeof(int), NULL);
+			send(newConnection, msg.c_str(), msg_size, NULL);
+
+			connection.push_back(newConnection);
+			counter++;
+
+			CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)client_handler, (LPVOID)(i), NULL, NULL); // новый поток
+		}
 	}
 
 	system("pause");
