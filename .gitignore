@@ -2,3 +2,13 @@
 *.vcxproj
 *.vcxproj.*
 /.vs
+/Clinet/*.sln
+/Server/*.sln
+/Clinet/*.vcxproj
+/Server/*.vcxproj
+/Clinet/*.vcxproj.*
+/Server/*.vcxproj.*
+/Clinet/.vs
+/Server/.vs
+/Clinet/x64
+/Server/x64
