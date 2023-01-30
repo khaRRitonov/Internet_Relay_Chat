@@ -1,11 +1,7 @@
-#include "Window.h"
+#include "IRC_Window.h"
 
 int main() {
-	Graph_lib::Window win(500, 500, "Window");
-
-	Graph_lib::Button b(Graph_lib::Point(100, 0), 20, 100, "Test", NULL);
-
-	win.attach(b);
+	IRC_Window win(Point(100, 100), 600, 400, "IRC");
 	
 	return Graph_lib::gui_main();
 }

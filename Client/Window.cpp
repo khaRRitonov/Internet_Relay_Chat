@@ -1,4 +1,5 @@
 #include "Window.h"
+#include "GUI.h"
 
 namespace Graph_lib {
 	//----------------- Window ----------------------------------------------------------
@@ -12,12 +13,12 @@ namespace Graph_lib {
 	}
 
 	void Window::init() {
-		resizable(this);
+		resizable(this); // изменение размера окна
 		show();
 	}
 
 	void Window::draw() {
-		Fl_Window draw();
+		Fl_Window::draw();
 	}
 
 	void Window::attach(Widget& w) {
@@ -35,14 +36,4 @@ namespace Graph_lib {
 	int gui_main() {
 		return Fl::run();
 	}
-
-	//----------------- Widget ----------------------------------------------------------
-
-	void Button::attach(Window& win) {
-		pw = new Fl_Button(loc.x, loc.y, width, height, label.c_str());
-		pw->callback(reinterpret_cast<Fl_Callback*>(do_it), &win);
-		own = &win;
-	}
-
-	//---------------------------------------------------------------------------
 }
