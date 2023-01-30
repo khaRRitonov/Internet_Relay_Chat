@@ -18,9 +18,9 @@ void client_handler(int index) {
 		msg[msg_size] = '\0';
 		recv(connection[index], msg, msg_size, NULL);
 		for (int i = 0; i < counter; i++) {
-			if (i == index) {
-				continue;
-			}
+			//if (i == index) {
+			//	continue;
+			//}
 			send(connection[i], (char*)&msg_size, sizeof(int), NULL);
 			send(connection[i], msg, msg_size, NULL);
 		}

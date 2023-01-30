@@ -10,11 +10,13 @@ IRC_Window::IRC_Window(Point xy, int w, int h, const std::string& title) : Windo
 	attach(*connect_b);
 	attach(*exit_b);
 
-	in1 = new In_Box(Point(0, y_max() - 30), x_max(), 30, "Text"); // строка ввода
-	attach(*in1);
+	input_text = new In_Box(Point(0, y_max() - 30), x_max() - 100, 30, "Text"); // строка ввода
+	attach(*input_text);
+	input_button = new Button(Point(x_max() - 100, y_max() - 30), 100, 30, "Send", input_c);
+	attach(*input_button);
 
-	out1 = new Out_Box(Point(0, 30), x_max(), y_max() - 60, "Text"); // поле вывода
-	attach(*out1);
+	output_text = new Out_Box(Point(0, 30), x_max(), y_max() - 60, "Text"); // поле вывода
+	attach(*output_text);
 }
 
 //------------------------------------------------------------------------------
@@ -50,6 +52,17 @@ void IRC_Window::connect_c(Address, Address pw) {
 
 void IRC_Window::connect() {
 
+}
+
+//------------------------------------------------------------------------------
+
+void IRC_Window::input_c(Address, Address pw) {
+	reference_to<IRC_Window>(pw).input_t();
+}
+
+void IRC_Window::input_t() {
+
+	output_text->put_string(input_text->get_string());
 }
 
 //------------------------------------------------------------------------------

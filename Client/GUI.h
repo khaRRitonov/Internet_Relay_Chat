@@ -4,6 +4,9 @@
 #include <FL/Fl_Input.h>
 #include <FL/Fl_Output.h>
 
+#ifndef GUI_GUARD
+#define GUI_GUARD
+
 namespace Graph_lib {
 
 	typedef void* Address;
@@ -54,12 +57,16 @@ namespace Graph_lib {
 	struct In_Box : public Widget {
 		In_Box(Point xy, int w, int h, const std::string& s) : Widget(xy, w, h, s, NULL) {}
 		void attach(Window&);
+		std::string get_string();
 	};
 
-	//----------------- In_Box ----------------------------------------------------------
+	//----------------- Out_Box ----------------------------------------------------------
 
 	struct Out_Box : public Widget {
 		Out_Box(Point xy, int w, int h, const std::string& s) : Widget(xy, w, h, s, NULL) {}
 		void attach(Window&);
+		void put_string(const std::string& s);
 	};
 }
+
+#endif GUI_GUARD
