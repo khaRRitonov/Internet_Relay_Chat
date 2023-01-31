@@ -20,7 +20,7 @@ struct IRC_Window : public Window {
 	void guit(); // действия
 	void name_user();
 	void connect();
-	void input_t();
+	void input_text_f();
 private:
 	static void exit_c(Address, Address); // обратные вызовы
 	static void name_c(Address, Address);

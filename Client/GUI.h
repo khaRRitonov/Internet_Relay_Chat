@@ -2,7 +2,8 @@
 #include <FL/Fl.h>
 #include <FL/Fl_Button.h>
 #include <FL/Fl_Input.h>
-#include <FL/Fl_Output.h>
+#include <FL/Fl_Multiline_Output.h>
+#include <FL/Fl_Text_Display.h>
 
 #ifndef GUI_GUARD
 #define GUI_GUARD

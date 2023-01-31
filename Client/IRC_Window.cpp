@@ -57,10 +57,10 @@ void IRC_Window::connect() {
 //------------------------------------------------------------------------------
 
 void IRC_Window::input_c(Address, Address pw) {
-	reference_to<IRC_Window>(pw).input_t();
+	reference_to<IRC_Window>(pw).input_text_f();
 }
 
-void IRC_Window::input_t() {
+void IRC_Window::input_text_f() {
 
 	output_text->put_string(input_text->get_string());
 }

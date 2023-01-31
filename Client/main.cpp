@@ -47,8 +47,7 @@ void connect_net() {
 
 	std::cout << "Connected!" << std::endl;
 
-	//CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)client_hendler, NULL, NULL, NULL);
-	client_hendler();
+	CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)client_hendler, NULL, NULL, NULL); // запускаем в новом потоке
 
 	std::string msg1;                        
 	while (true) {
