@@ -22,7 +22,7 @@ int main()
 
         tcp::acceptor acceptor(io_context, tcp::endpoint(tcp::v4(), 13));
 
-        for (;;)
+        while (true)
         {
             tcp::socket socket(io_context);
             acceptor.accept(socket);
@@ -31,7 +31,9 @@ int main()
 
             boost::system::error_code ignored_error;
             boost::asio::write(socket, boost::asio::buffer(message), ignored_error);
+            std::cout << "Server start!" << std::endl;
         }
+        
     }
     catch (std::exception& e)
     {
