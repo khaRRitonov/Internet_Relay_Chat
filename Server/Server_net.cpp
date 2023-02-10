@@ -6,6 +6,7 @@
 #pragma warning(disable : 4996)
 
 using boost::asio::ip::tcp;
+using namespace std;
 
 std::string make_daytime_string()
 {
@@ -27,17 +28,18 @@ int main()
             tcp::socket socket(io_context);
             acceptor.accept(socket);
 
-            std::string message = make_daytime_string();
+            string message = make_daytime_string();
 
             boost::system::error_code ignored_error;
             boost::asio::write(socket, boost::asio::buffer(message), ignored_error);
-            std::cout << "Server start!" << std::endl;
+            cout << "Server start!" << endl;
         }
         
     }
-    catch (std::exception& e)
+    catch (exception& e)
     {
-        std::cerr << e.what() << std::endl;
+        cerr << "Error: " << e.what() << endl;
+        return 1;
     }
 
     return 0;
