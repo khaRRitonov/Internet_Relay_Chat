@@ -8,9 +8,8 @@
 using boost::asio::ip::tcp;
 using namespace std;
 
-std::string make_daytime_string()
+string make_daytime_string()
 {
-    using namespace std; // For time_t, time and ctime;
     time_t now = time(0);
     return ctime(&now);
 }
@@ -25,6 +24,7 @@ int main()
 
         while (true)
         {
+            cout << "Server start!" << endl;
             tcp::socket socket(io_context);
             acceptor.accept(socket);
 
@@ -32,7 +32,6 @@ int main()
 
             boost::system::error_code ignored_error;
             boost::asio::write(socket, boost::asio::buffer(message), ignored_error);
-            cout << "Server start!" << endl;
         }
         
     }
